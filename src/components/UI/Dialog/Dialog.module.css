@@ -1,0 +1,33 @@
+.dialog {
+    /* background: white;
+    padding: 0 1rem 1rem; */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 10px;
+
+    background-color: white;
+    width: 12rem;
+    min-height: 12rem;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    /* position the div in center */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h3{
+    line-height: 1rem;
+  }
+
+  .dialog > hr {
+    width: 90%;
+  }
+
+  .dialog > button {
+    background-color: #D2192A;
+  }
