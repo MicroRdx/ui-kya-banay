@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ui-kya-banay/static/css/main.a193599e.css",
+    "main.js": "/ui-kya-banay/static/js/main.7d887275.js",
+    "static/js/592.019e5858.chunk.js": "/ui-kya-banay/static/js/592.019e5858.chunk.js",
+    "index.html": "/ui-kya-banay/index.html",
+    "main.a193599e.css.map": "/ui-kya-banay/static/css/main.a193599e.css.map",
+    "main.7d887275.js.map": "/ui-kya-banay/static/js/main.7d887275.js.map",
+    "592.019e5858.chunk.js.map": "/ui-kya-banay/static/js/592.019e5858.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a193599e.css",
+    "static/js/main.7d887275.js"
+  ]
+}
