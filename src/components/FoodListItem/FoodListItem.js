@@ -11,7 +11,7 @@ const FoodListItem = (props) => {
                 <button
                     style={{ marginLeft: 1 + 'rem', backgroundColor: '#d11a2a' }}
                     className="btn-Delete"
-                    onClick={(e) => props.handleDelete(e, props.itemName)}
+                    onClick={(e) => props.handleDelete(e, props.itemData)}
                 >
                     Delete
                 </button>
