@@ -8,6 +8,14 @@ const FoodListItem = (props) => {
                 <p
                 // style={{display: 'inline-block'}}
                 >{props.itemName}</p>
+                <div>
+                <button
+                    style={{ marginLeft: 1 + 'rem' }}
+                    className="btn-Edit"
+                    onClick={(e) => props.handleEdit(e, props.itemData)}
+                >
+                    Edit
+                </button>
                 <button
                     style={{ marginLeft: 1 + 'rem', backgroundColor: '#d11a2a' }}
                     className="btn-Delete"
@@ -15,6 +23,7 @@ const FoodListItem = (props) => {
                 >
                     Delete
                 </button>
+                </div>
             </div>
         </li>
 

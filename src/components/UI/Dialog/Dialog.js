@@ -7,7 +7,7 @@ const Dialog = (props) => {
         <div className={`${classes.dialog} ${props.className}`}>
             <h3>{props.titleText}</h3>
             <hr />
-            <p>{props.selectedItem}</p>
+            <p>{props.selectedItem.title}</p>
             <button onClick={() => { props.onSelection(null) }}>Close</button>
         </div>
     );

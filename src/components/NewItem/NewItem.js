@@ -6,7 +6,8 @@ const NewItem = (props) => {
         setEnteredFoodItem(event.target.value);
     };
     const addItemButtonHandler = (event) => {
-      props.onAdd(event, enteredFoodItem);
+      props.onAdd(event, enteredFoodItem+'');
+      setEnteredFoodItem('')
     }
     return (
         <div>
@@ -15,7 +16,7 @@ const NewItem = (props) => {
             value={enteredFoodItem}
             onChange={foodItemChangeHandler}
         />
-        <button onClick={addItemButtonHandler} id="addItemButton">Add Item</button>
+        <button onClick={addItemButtonHandler}  id="addItemButton">Add Item</button>
         </div>
     )
 

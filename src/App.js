@@ -9,17 +9,13 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 function App() {
-  // Backend API service domain link
-  const server_url = "https://api-kya-banay.onrender.com";
-
   // UseState hooks
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState();
-
   // Loading initial Food List Items from backend
   useEffect(() => {
-    const getFoodsPromise = new Promise((resolve) =>
-      fetch(server_url + '/getFoods', {
+    const getFoodsPromise = new Promise((resolve, reject) =>
+      fetch(process.env.REACT_APP_API_BASE_URL + '/Menu', {
         "method": "GET",
         "timeout": 0,
         "headers": {
@@ -52,11 +48,12 @@ function App() {
         })
         .catch((err) => {
           console.log(err.message);
+          reject(err)
         })
     );
 
     toast.promise(getFoodsPromise, {
-      pending: "Getting food items!",
+      pending: "Fetching food items!",
       success: "Fetched food items!",
       error: "Couldn't fetch food items",
     });
@@ -65,16 +62,56 @@ function App() {
 
   }, []);
 
+
   const onSelectRandomDishHandler = (event) => {
     let randomIndex = Math.floor(Math.random() * items.length);
+    console.log(randomIndex)
     setSelectedItem(
       <Dialog
         titleText='Selected Item'
         selectedItem={items[randomIndex]}
-        onSelection={setSelectedItem} >
+        onSelection={() => setSelectedItem(null)}
+      >
       </Dialog>
     )
 
+  }
+
+  const handleEditMenu = (e, itemData) => {
+    toast.info("Coming soon - Edit option is under development.");
+    console.log(e)
+    console.log(itemData)
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    // var raw = JSON.stringify({
+    //   id: itemData.id
+    // });
+
+    // var requestOptions = {
+    //   method: 'PUT',
+    //   headers: myHeaders,
+    //   body: raw,
+    //   redirect: 'follow'
+    // };
+
+    // fetch(process.env.REACT_APP_API_BASE_URL + "/Menu/" + itemData.id, requestOptions)
+    //   .then(response => response.text())
+    //   .then(result => {
+    //     const filteredItems = items.filter(item => item.id !== itemData.id)
+    //     setItems([...filteredItems])
+    //     localStorage.setItem('foodItems', JSON.stringify(filteredItems));
+    //     console.log(result)
+    //     toast.success("Removed item successfully !", {
+    //       position: "bottom-left"
+    //     });
+    //   })
+    //   .catch(error => {
+    //     toast.error("Error - Couldn't remove !", {
+    //       position: "bottom-right"
+    //     });
+    //     console.log('error', error)
+    //   });
   }
   const handleRemoveItem = (e, itemData) => {
     console.log(e)
@@ -93,7 +130,7 @@ function App() {
       redirect: 'follow'
     };
 
-    fetch(server_url + "/removeFoodItem", requestOptions)
+    fetch(process.env.REACT_APP_API_BASE_URL + "/Menu/" + itemData.id, requestOptions)
       .then(response => response.text())
       .then(result => {
         const filteredItems = items.filter(item => item.id !== itemData.id)
@@ -101,25 +138,17 @@ function App() {
         localStorage.setItem('foodItems', JSON.stringify(filteredItems));
         console.log(result)
         toast.success("Removed item successfully !", {
-          position: toast.POSITION.BOTTOM_LEFT,
+          position: "bottom-left"
         });
       })
       .catch(error => {
         toast.error("Error - Couldn't remove !", {
-          position: toast.POSITION.BOTTOM_RIGHT,
+          position: "bottom-right"
         });
         console.log('error', error)
       });
-
-
-
   }
   const handleAddItem = (e, itemName) => {
-    // setNewFoodItem({
-    //   id: "FD" + uuidv4().slice(-4),
-    //   title: itemName
-    // })
-
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -135,23 +164,22 @@ function App() {
       redirect: 'follow'
     };
 
-    fetch(server_url + "/addFoodItem", requestOptions)
+    fetch(process.env.REACT_APP_API_BASE_URL + "/Menu", requestOptions)
       .then(response => response.text())
       .then(result => {
-
         setItems(items => {
           items.push(oNewItem)
           return [...items]
         });
         localStorage.setItem('foodItems', JSON.stringify(items));
         toast.success("Add added successfully !", {
-          position: toast.POSITION.BOTTOM_LEFT,
+          position: "bottom-left",
         });
         // console.log(result)
       })
       .catch(error => {
         toast.error("Error - Couldn't Add !", {
-          position: toast.POSITION.BOTTOM_RIGHT,
+          position: "bottom-right"
         });
         console.log('error', error)
       });
@@ -163,13 +191,12 @@ function App() {
     <div className="App">
       <h1>Kya Banay</h1>
       <NewItem onAdd={handleAddItem}></NewItem>
-
       <div className="verticalScroll">
         <ul id="foodList">
           {
             items.map((item) => {
               return (
-                <FoodListItem key={item.id} itemData={item} itemName={item.title} handleDelete={handleRemoveItem} ></FoodListItem>
+                <FoodListItem key={item.id} itemData={item} itemName={item.title} handleEdit={handleEditMenu} handleDelete={handleRemoveItem} ></FoodListItem>
               )
             })
           }

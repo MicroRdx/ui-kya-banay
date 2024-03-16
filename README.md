@@ -68,3 +68,69 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+---
+
+## Deployment to GitHub Pages
+
+### Step 1: Install gh-pages
+
+Firstly, install the 'gh-pages' module by running the following command in your project directory (make sure you have NodeJS installed):
+First, install the `gh-pages`
+then run
+
+```bash
+npm install --save gh-pages
+```
+
+### Step 2: Add script to your `package.json` file
+
+Add following scripts into "scripts" section of your `package.json`:
+
+```json
+
+```
+
+### Step 3: Create a new branch and push it
+
+Create a new branch named _gh-pages_ using the command below. And then use `git push origin add-blog-post` to push this new branch to your remote repository.
+Create a new branch named _gh-pages_ using the command below:
+
+```bash
+git checkout -b gh-pages
+```
+Then use the command below to push this new branch onto Github:
+
+```bash
+git push origin gh-pages
+``` 
+
+You can also do that in one line with the following command:
+
+```bash
+git push origin gh-pages:gh-pages
+```
+
+Now you have created a _gh-pages_ branch on Github!
+
+### Step 4: Publish your website
+
+To publish your website, add the following commands into the `"script"` section of your `package.json`.
+
+```json
+"script": {
+    // ...
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    // ...
+}
+```
+
+### Step 5: Use the `deploy` command to call NPM commands for deplooyment:
+
+```bash
+npm run deploy
+```
+This will first execute the `build` script (which is defined under `"scripts"`) and then it will use `gh-pages` to push the build files into gh-pages branch in github.
+Then GitHub will takecare of publishing the new  version of your site at [http://yourusername.github.io/repo](http://micrordx.github.io/ui-kya-banay)
+
